@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: morrer
+  m_Name: morrendo
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -19,31 +19,31 @@ AnimationClip:
   m_FloatCurves: []
   m_PPtrCurves:
   - curve:
-    - time: 0.025
+    - time: 0.04
       value: {fileID: 21300000, guid: 371df2e77f1adc34688ff94bd9b2db08, type: 3}
-    - time: 0.175
+    - time: 0.14
       value: {fileID: 21300000, guid: 13762011bca5b9543856f4c7de559dd4, type: 3}
-    - time: 0.3
+    - time: 0.24
       value: {fileID: 21300000, guid: 734045ada1e002e41a5deda80e8658ca, type: 3}
-    - time: 0.425
+    - time: 0.34
       value: {fileID: 21300000, guid: 54d457222d5b8c649a63a660b9da0ec7, type: 3}
-    - time: 0.575
+    - time: 0.46
       value: {fileID: 21300000, guid: 5b5d7f6297774b74eae912f9a9b561be, type: 3}
-    - time: 0.725
+    - time: 0.56
       value: {fileID: 21300000, guid: 13d279cfd9ccded4f8e0f551470ca951, type: 3}
-    - time: 0.85
+    - time: 0.66
       value: {fileID: 21300000, guid: 1ad94b1a55717e248b065b60dfd9ffc8, type: 3}
-    - time: 0.975
+    - time: 0.76
       value: {fileID: 21300000, guid: 180242af7ea06d94ea3e40c44ef34978, type: 3}
-    - time: 1.075
+    - time: 0.86
       value: {fileID: 21300000, guid: 11ad822aea360c049995df61a7fc52a7, type: 3}
-    - time: 1.225
+    - time: 0.96
       value: {fileID: 21300000, guid: f9a450c5907696d4086da5d874e8de56, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
-  m_SampleRate: 40
+  m_SampleRate: 50
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -73,7 +73,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.25
+    m_StopTime: 0.97999996
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
