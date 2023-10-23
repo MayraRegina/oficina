@@ -252,6 +252,7 @@ GameObject:
   - component: {fileID: 178083595}
   - component: {fileID: 178083599}
   - component: {fileID: 178083598}
+  - component: {fileID: 178083600}
   m_Layer: 0
   m_Name: Demon
   m_TagString: Untagged
@@ -393,6 +394,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4.908646, y: 5.9218326}
   m_EdgeRadius: 0
+--- !u!114 &178083600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 178083594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2f12b8a3a9730f41abd8887cd749f0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 4
+  timer: 4
+  walktime: 4
+  damage: 1
+  walkRight: 0
 --- !u!1 &682464765
 GameObject:
   m_ObjectHideFlags: 0
