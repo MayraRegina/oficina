@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
     public float speed;
     public float timer;
     public float walktime;
-    static int vidaCururu;
+    public int LifeDemon = 30;
     public int damage = 1;
 
     public bool walkRight = true;
@@ -50,7 +50,7 @@ public class Enemy : MonoBehaviour
     {
         if (col.gameObject.tag == "Player")
         {
-            //col.gameObject.GetComponent<Player>().damage(damage);
+            
         }
     }
     
