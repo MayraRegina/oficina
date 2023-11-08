@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BossAtack : MonoBehaviour
 {
-    public Transform player; // O jogador a ser atacado
+    public Transform player;
     public float attackRange = 2f;
     public float attackCooldown = 3f;
     public float attackDamage = 10;
@@ -16,6 +16,7 @@ public class BossAtack : MonoBehaviour
     public float walktime;
     public int LifeDemon = 30;
     public int damage = 1;
+    public int stagio = 1;
 
     public bool walkRight = true;
 
@@ -34,11 +35,19 @@ public class BossAtack : MonoBehaviour
             anim.SetTrigger("Morte");
             Destroy(GetComponent<Rigidbody2D>());
             Destroy(GetComponent<BoxCollider2D>());
+            Destroy(gameObject, 3f);
         }
 
         if (LifeDemon > 0)
         {
             StarRoutin();
+        }
+
+        if (LifeDemon <= 15)
+        {
+            stagio = 2;
+            speed = 6f;
+            damage = 2;
         }
     }
 
@@ -78,24 +87,50 @@ public class BossAtack : MonoBehaviour
 
     void move()
     {
-        timer += Time.deltaTime;
+        if (stagio == 1)
+        {
+            timer += Time.deltaTime;
         
-        if (timer >= walktime)
-        {
-            walkRight = !walkRight;
-            timer = 0f;
+            if (timer >= walktime)
+            {
+                walkRight = !walkRight;
+                timer = 0f;
+            }
+            if (walkRight && canAttack == true)
+            {
+                anim.SetInteger("Transition", 0);
+                transform.eulerAngles = new Vector2(0,0);
+                rig.velocity = Vector2.right * speed;
+            }
+            if(!walkRight && canAttack == true)
+            {
+                anim.SetInteger("Transition", 0);
+                transform.eulerAngles = new Vector2(0,180);
+                rig.velocity = Vector2.left * speed;
+            }   
         }
-        if (walkRight && canAttack == true)
+
+        if (stagio == 2)
         {
-            anim.SetInteger("Transition", 0);
-            transform.eulerAngles = new Vector2(0,0);
-            rig.velocity = Vector2.right * speed;
-        }
-        if(!walkRight && canAttack == true)
-        {
-            anim.SetInteger("Transition", 0);
-            transform.eulerAngles = new Vector2(0,180);
-            rig.velocity = Vector2.left * speed;
+            timer += Time.deltaTime;
+        
+            if (timer >= walktime)
+            {
+                walkRight = !walkRight;
+                timer = 0f;
+            }
+            if (walkRight && canAttack == true)
+            {
+                anim.SetInteger("Transition", 1);
+                transform.eulerAngles = new Vector2(0,0);
+                rig.velocity = Vector2.right * speed;
+            }
+            if(!walkRight && canAttack == true)
+            {
+                anim.SetInteger("Transition", 1);
+                transform.eulerAngles = new Vector2(0,180);
+                rig.velocity = Vector2.left * speed;
+            }
         }
     }
 
@@ -105,11 +140,18 @@ public class BossAtack : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "BalaPlayer")
         {
             LifeDemon--;
+            Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.tag == "Bala2")
+        {
+            LifeDemon -= 2;
+            Destroy(collision.gameObject);
         }
     }
 }
