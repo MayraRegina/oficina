@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    public int health = 7;
+    public int vida = 7;
+    public int vidaMaxima = 7;
+    public Text textoVida;  
     public float speed;
     public float jumpForce;
     public float bulletspeed = 15f;
@@ -30,6 +33,7 @@ public class Player : MonoBehaviour
     {
         rig = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        AtualizarUIVida();
     }
 
     void Update()
@@ -173,17 +177,33 @@ public class Player : MonoBehaviour
 
         if (coll.gameObject.tag == "espada")
         {
-            health--;
+            anim.SetInteger("Transition", 7);
+            vida--;
+            AtualizarUIVida();
         }
+    }
+
+    public void take(int valor)
+    {
+        vida -= valor;
+        anim.SetInteger("Transition", 7);
+        AtualizarUIVida();
     }
 
     void dead()
     {
-        if (health <= 0)
+        if (vida <= 0)
         {
             isdead = true;
             anim.SetTrigger("Morte");
             Destroy(gameObject, 2f);
+        }
+    }
+    void AtualizarUIVida()
+    {
+        if (textoVida != null)
+        {
+            textoVida.text =  + vida + " / " + vidaMaxima;
         }
     }
 }
