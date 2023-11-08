@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
     public GameObject Bala;
     public GameObject Bala2;
     public Transform firePoint;
+    public AudioClip[] audio;
+    public AudioSource source;
 
     public bool isJumping;
     public bool doubleJump;
@@ -31,6 +33,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        source = GetComponent<AudioSource>();
         rig = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         AtualizarUIVida();
@@ -44,7 +47,6 @@ public class Player : MonoBehaviour
             Jump();
             Fire();
         }
-
     }
 
     void FixedUpdate()
@@ -58,7 +60,6 @@ public class Player : MonoBehaviour
     void Move()
     {
         movement = Input.GetAxis("Horizontal");
-
         rig.velocity = new Vector2(movement * speed, rig.velocity.y);
 
         if (movement > 0)
@@ -97,6 +98,7 @@ public class Player : MonoBehaviour
         {
             if (!isJumping)
             {
+                playAudios(3);
                 anim.SetInteger("Transition", 1);
                 rig.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
                 doubleJump = true;
@@ -106,6 +108,7 @@ public class Player : MonoBehaviour
             {
                 if (doubleJump && stage2)
                 {
+                    playAudios(3);
                     anim.SetInteger("Transition", 1);
                     rig.AddForce(new Vector2(0, jumpForce * 1), ForceMode2D.Impulse);
                     doubleJump = false;
@@ -136,6 +139,7 @@ public class Player : MonoBehaviour
             isFiring = true;
             if (stage1 == true)
             {
+                playAudios(2);
                 anim.SetInteger("Transition", 4);
                 bullet1(bulletspeed);
                 yield return new WaitForSeconds(fireDelay);
@@ -143,6 +147,7 @@ public class Player : MonoBehaviour
             }
             if (stage3 == true)
             {
+                playAudios(1);
                 anim.SetInteger("Transition", 4);
                 bullet2(bulletspeed);
                 yield return new WaitForSeconds(fireDelay);
@@ -204,6 +209,16 @@ public class Player : MonoBehaviour
         if (textoVida != null)
         {
             textoVida.text =  + vida + " / " + vidaMaxima;
+        }
+    }
+
+    void playAudios(int valor)
+    {
+        if (valor >=0 && valor < audio.Length)
+        {
+            source.clip = audio[valor];
+            source.Play();
+
         }
     }
 }
