@@ -17,6 +17,8 @@ public class BossAtack : MonoBehaviour
     public int LifeDemon = 30;
     public int damage = 1;
     public int stagio = 1;
+    public AudioClip[] audio;
+    public AudioSource source;
 
     public bool walkRight = true;
 
@@ -24,6 +26,7 @@ public class BossAtack : MonoBehaviour
 
     private void Start()
     {
+        source = GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
         rig = GetComponent<Rigidbody2D>();
     }
@@ -32,6 +35,7 @@ public class BossAtack : MonoBehaviour
     {
         if (LifeDemon <=0)
         {
+            Play(1);
             anim.SetTrigger("Morte");
             Destroy(GetComponent<Rigidbody2D>());
             Destroy(GetComponent<BoxCollider2D>());
@@ -65,7 +69,9 @@ public class BossAtack : MonoBehaviour
         {
             attackCooldown = 3f;
             canAttack = false;
+            GetComponent<Player>().take(damage);
             anim.SetInteger("Transition", 2);
+            Play(0);
             yield return new WaitForSeconds(1f);
             Debug.Log("Atacou");
             canAttack = true;
@@ -146,12 +152,22 @@ public class BossAtack : MonoBehaviour
         {
             LifeDemon--;
             Destroy(collision.gameObject);
+            Play(2);
         }
 
         if (collision.gameObject.tag == "Bala2")
         {
             LifeDemon -= 2;
             Destroy(collision.gameObject);
+        }
+    }
+
+    void Play(int value)
+    {
+        if (value >= 0 && value < audio.Length)
+        {
+            source.clip = audio[value];
+            source.Play();
         }
     }
 }
