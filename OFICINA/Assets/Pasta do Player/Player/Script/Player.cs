@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -179,8 +181,12 @@ public class Player : MonoBehaviour
         {
             isJumping = false;
         }
+        
+    }
 
-        if (coll.gameObject.tag == "espada")
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Espada")
         {
             anim.SetInteger("Transition", 7);
             vida--;
@@ -188,20 +194,19 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void take(int valor)
+    public void TakeDamage(int damage)
     {
-        vida -= valor;
-        anim.SetInteger("Transition", 7);
+        vida -= damage;
         AtualizarUIVida();
     }
-
-    void dead()
+        void dead()
     {
         if (vida <= 0)
         {
             isdead = true;
             anim.SetTrigger("Morte");
             Destroy(gameObject, 2f);
+            SceneManager.LoadScene(0);
         }
     }
     void AtualizarUIVida()

@@ -2,23 +2,23 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BossAtack : MonoBehaviour
 {
     public Transform player;
-    public float attackRange = 2f;
-    public float attackCooldown = 3f;
-    public float attackDamage = 10;
+    public float attackRange;
+    public float attackCooldown = 1.5f;
     public Animator anim;
     private Rigidbody2D rig;
     public float speed;
     public float timer;
     public float walktime;
     public int LifeDemon = 30;
-    public int damage = 1;
     public int stagio = 1;
     public AudioClip[] audio;
     public AudioSource source;
+    public Player playerdameg;
 
     public bool walkRight = true;
 
@@ -26,6 +26,7 @@ public class BossAtack : MonoBehaviour
 
     private void Start()
     {
+        playerdameg = GetComponent<Player>();
         source = GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
         rig = GetComponent<Rigidbody2D>();
@@ -35,7 +36,6 @@ public class BossAtack : MonoBehaviour
     {
         if (LifeDemon <=0)
         {
-            Play(1);
             anim.SetTrigger("Morte");
             Destroy(GetComponent<Rigidbody2D>());
             Destroy(GetComponent<BoxCollider2D>());
@@ -47,11 +47,10 @@ public class BossAtack : MonoBehaviour
             StarRoutin();
         }
 
-        if (LifeDemon <= 15)
+        if (LifeDemon <= 25)
         {
             stagio = 2;
             speed = 6f;
-            damage = 2;
         }
     }
 
@@ -69,11 +68,8 @@ public class BossAtack : MonoBehaviour
         {
             attackCooldown = 3f;
             canAttack = false;
-            GetComponent<Player>().take(damage);
             anim.SetInteger("Transition", 2);
-            Play(0);
             yield return new WaitForSeconds(1f);
-            Debug.Log("Atacou");
             canAttack = true;
         }
     }
@@ -146,7 +142,7 @@ public class BossAtack : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "BalaPlayer")
         {
