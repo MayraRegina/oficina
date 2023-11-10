@@ -28,6 +28,8 @@ public class Player : MonoBehaviour
     public bool stage3;
     public bool isdead;
 
+    public int ScenaAtual;
+
     private Rigidbody2D rig;
     private Animator anim;
 
@@ -193,20 +195,14 @@ public class Player : MonoBehaviour
             AtualizarUIVida();
         }
     }
-
-    public void TakeDamage(int damage)
-    {
-        vida -= damage;
-        AtualizarUIVida();
-    }
-        void dead()
+    void dead()
     {
         if (vida <= 0)
         {
             isdead = true;
             anim.SetTrigger("Morte");
             Destroy(gameObject, 2f);
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(ScenaAtual);
         }
     }
     void AtualizarUIVida()

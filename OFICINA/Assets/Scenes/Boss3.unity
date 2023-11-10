@@ -1117,9 +1117,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2340332621173460982, guid: 40d78e0432cf0c44da1e40183cc2c8f7, type: 3}
+      propertyPath: jumpForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2340332621173460982, guid: 40d78e0432cf0c44da1e40183cc2c8f7, type: 3}
       propertyPath: textoVida
       value: 
       objectReference: {fileID: 542619041}
+    - target: {fileID: 2340332621173460982, guid: 40d78e0432cf0c44da1e40183cc2c8f7, type: 3}
+      propertyPath: ScenaAtual
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40d78e0432cf0c44da1e40183cc2c8f7, type: 3}
 --- !u!1 &1471633394

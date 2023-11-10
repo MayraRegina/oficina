@@ -19,6 +19,7 @@ public class BossAtack : MonoBehaviour
     public AudioClip[] audio;
     public AudioSource source;
     public Player playerdameg;
+    public int S;
 
     public bool walkRight = true;
 

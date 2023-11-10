@@ -1,20 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Enemy : MonoBehaviour
 {
     public Transform player;
     public float attackRange = 2f;
     public float attackCooldown = 3f;
-    public float attackDamage = 10;
     public Animator anim;
     private Rigidbody2D rig;
-    public float speed;
-    public float timer;
-    public float walktime;
-    public int LifeDemon = 30;
-    public int damage = 1;
+    public float speed = 5f;
+    public float timer = 4f;
+    public float walktime = 4f;
+    public int Life = 30;
     public int stagio = 1;
 
     public bool walkRight = true;
@@ -29,30 +28,31 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if (LifeDemon <=0)
+        if (Life <=0)
         {
-            anim.SetTrigger("Morte");
+            anim.SetTrigger("morrendo");
             Destroy(GetComponent<Rigidbody2D>());
             Destroy(GetComponent<BoxCollider2D>());
             Destroy(gameObject, 3f);
+            SceneManager.LoadScene(1);
         }
 
-        if (LifeDemon > 0)
+        if (Life > 0)
         {
             StarRoutin();
         }
 
-        if (LifeDemon <= 15)
+        if (Life <= 15)
         {
             stagio = 2;
-            speed = 6f;
-            damage = 2;
+            speed = 10f;
+            walktime = 2;
         }
     }
 
     private void FixedUpdate()
     {
-        if (LifeDemon > 0)
+        if (Life > 0)
         {
             move();
         }
@@ -135,21 +135,15 @@ public class Enemy : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.yellow;
+        Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "BalaPlayer")
         {
-            LifeDemon--;
-            Destroy(collision.gameObject);
-        }
-
-        if (collision.gameObject.tag == "Bala2")
-        {
-            LifeDemon -= 2;
+            Life--;
             Destroy(collision.gameObject);
         }
     }
